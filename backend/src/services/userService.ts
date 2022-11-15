@@ -33,21 +33,22 @@ export async function login(user: UserData) {
     message: `Incompatible username and password`
   }
 }
-// export async function checkToken(authorization: string) {
-//   const token = authorization?.replace("Bearer ", "").trim();
-//   if (!token) {
-//     throw {
-//       type: "unauthorized",
-//       message: "invalid token"
-//     }
-//   }
-//   const data = jwt.verify(token, JWT) as any;
-//   const { id } = await userRepository.getUserById(data.id)
-//   if (!id) {
-//     throw {
-//       type: "not_found",
-//       message: "user not found"
-//     }
-//   }
-//   return id
-// }
+export async function checkToken(authorization: string) {
+  try {
+    const token = authorization?.replace("Bearer ", "").trim();
+    if (!token) {
+      throw {}
+    }
+    const data = jwt.verify(token, JWT) as any;
+    const { id, accountId } = await userRepository.getUserById(data.id)
+    if (!id) {
+      throw {}
+    }
+    return { id, accountId }
+  } catch (error) {
+    throw {
+      type: "unauthorized",
+      message: "invalid token"
+    }
+  }
+}
