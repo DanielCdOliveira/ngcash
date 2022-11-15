@@ -23,31 +23,31 @@ async function checkUserExists(username: string) {
   }
 }
 export async function login(user: UserData) {
-  // const userDb = await userRepository.getUserByEmail(user.email)
-  // if (userDb && bcrypt.compareSync(user.password, userDb.password)) {
-  //   const token = jwt.sign({ id: userDb.id }, JWT);
-  //   return token
-  // }
-  // throw {
-  //   type: "unauthorized",
-  //   message: `Incompatible username and password`
-  // }
-}
-export async function checkToken(authorization: string) {
-  const token = authorization?.replace("Bearer ", "").trim();
-  if (!token) {
-    throw {
-      type: "unauthorized",
-      message: "invalid token"
-    }
+  const userDb = await userRepository.getUserByName(user.username)
+  if (userDb && bcrypt.compareSync(user.password, userDb.password)) {
+    const token = jwt.sign({ id: userDb.id }, JWT, { expiresIn: "1d" });
+    return token
   }
-  const data = jwt.verify(token, JWT) as any;
-  const { id } = await userRepository.getUserById(data.id)
-  if (!id) {
-    throw {
-      type: "not_found",
-      message: "user not found"
-    }
+  throw {
+    type: "unauthorized",
+    message: `Incompatible username and password`
   }
-  return id
 }
+// export async function checkToken(authorization: string) {
+//   const token = authorization?.replace("Bearer ", "").trim();
+//   if (!token) {
+//     throw {
+//       type: "unauthorized",
+//       message: "invalid token"
+//     }
+//   }
+//   const data = jwt.verify(token, JWT) as any;
+//   const { id } = await userRepository.getUserById(data.id)
+//   if (!id) {
+//     throw {
+//       type: "not_found",
+//       message: "user not found"
+//     }
+//   }
+//   return id
+// }
