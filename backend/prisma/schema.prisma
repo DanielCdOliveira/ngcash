@@ -8,11 +8,11 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  username  String  @unique
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
   password  String
-  accountId Int
-  account   Account @relation(fields: [accountId], references: [id])
+  accountId Int?
+  account   Account? @relation(fields: [accountId], references: [id])
 
   @@map("users")
 }

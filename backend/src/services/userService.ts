@@ -3,20 +3,24 @@ import jwt from "jsonwebtoken"
 
 import { UserData } from "../interfaces/interfaces.js"
 import * as userRepository from "../repositories/userRepository.js"
-
+import * as accountServices from "../services/accountService.js"
 const SALT = parseInt(process.env.SALT)
 const JWT = process.env.JWT
 
 export async function createUser(newUser: UserData) {
-  const userExists = await userRepository.getUserByName(newUser.username)
+  await checkUserExists(newUser.username)
+  newUser.accountId = await accountServices.createAccount()
+  newUser.password = bcrypt.hashSync(newUser.password, SALT)
+  await userRepository.insertNewUser(newUser)
+}
+async function checkUserExists(username: string) {
+  const userExists = await userRepository.getUserByName(username)
   if (userExists) {
     throw {
       type: "conflict",
-      message: `${newUser.username} already registered`
+      message: `${username} already registered`
     }
   }
-  newUser.password = bcrypt.hashSync(newUser.password, SALT)
-  await userRepository.insertNewUser(newUser)
 }
 export async function login(user: UserData) {
   // const userDb = await userRepository.getUserByEmail(user.email)
