@@ -1,4 +1,3 @@
-
 import { prisma } from "../database.js"
 
 import { UserData } from "../interfaces/interfaces.js"

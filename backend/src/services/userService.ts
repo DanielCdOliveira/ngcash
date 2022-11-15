@@ -8,19 +8,20 @@ const SALT = parseInt(process.env.SALT)
 const JWT = process.env.JWT
 
 export async function createUser(newUser: UserData) {
-  await checkUserExists(newUser.username)
+  const user = await getUserByName(newUser.username)
+  if (user) {
+    throw {
+      type: "conflict",
+      message: `${newUser.username} already registered`
+    }
+  }
   newUser.accountId = await accountServices.createAccount()
   newUser.password = bcrypt.hashSync(newUser.password, SALT)
   await userRepository.insertNewUser(newUser)
 }
-async function checkUserExists(username: string) {
-  const userExists = await userRepository.getUserByName(username)
-  if (userExists) {
-    throw {
-      type: "conflict",
-      message: `${username} already registered`
-    }
-  }
+export async function getUserByName(username: string) {
+  return await userRepository.getUserByName(username)
+
 }
 export async function login(user: UserData) {
   const userDb = await userRepository.getUserByName(user.username)

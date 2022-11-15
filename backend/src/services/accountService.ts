@@ -6,7 +6,7 @@ export async function createAccount() {
 }
 export async function getBalance(accountId: number) {
   const { balance } = await accountRepository.getAccount(accountId)
-  if (!balance) {
+  if (balance === null) {
     throw {
       type: 'not_found'
     }
