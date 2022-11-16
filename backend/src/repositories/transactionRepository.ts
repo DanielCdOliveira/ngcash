@@ -45,7 +45,6 @@ export async function makeTransaction({ from, amount, to }) {
   }
 }
 export async function getTransactions(data: getTransactionsInfo) {
-  console.log(data);
   const query = `
   SELECT * FROM transactions
   ${data.cash ? `WHERE "${data.cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${data.accountId}` :

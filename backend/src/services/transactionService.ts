@@ -17,8 +17,6 @@ export async function makeTransaction({ accountId: from, destinationUserName, am
       message: "same account IDs"
     }
   }
-  console.log(destinationUser.accountId);
-
   await transactionRepository.makeTransaction({ from, to: destinationUser.accountId, amount })
 }
 async function checkValue(from: number, amount: number) {
