@@ -4,5 +4,5 @@ import verifyToken from "../middlewares/tokenVerifier.js";
 
 const transactionRouter = Router()
 transactionRouter.post("/transaction", verifyToken, makeTransaction)
-transactionRouter.get("/transactions", verifyToken, getTransactions)
+transactionRouter.post("/transactions", verifyToken, getTransactions)
 export default transactionRouter
