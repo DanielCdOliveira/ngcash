@@ -1,6 +1,13 @@
 import * as accountService from "../services/accountService.js"
 import * as userService from "../services/userService.js"
 import * as transactionRepository from "../repositories/transactionRepository.js"
+
+type getTransactionsInfo = {
+  accountId?: number
+  date?: string
+  cash?: "in" | "out"
+};
+
 export async function makeTransaction({ accountId: from, destinationUserName, amount }) {
   await checkValue(from, amount)
   const destinationUser = await destinationUserExists(destinationUserName)
@@ -32,4 +39,7 @@ async function destinationUserExists(destinationUserName: string) {
     }
   }
   return destinationUser
+}
+export async function getTransactions(data: getTransactionsInfo) {
+  return await transactionRepository.getTransactions(data)
 }
