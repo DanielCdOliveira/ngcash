@@ -19,9 +19,12 @@ services:
       - ngcash_db
     env_file:
       - backend/.env
+
   ngcash_react:
     container_name: ngcash_react
     build: ./frontend
+    env_file:
+      - frontend/.env
     volumes:
       - build-react:/var/www/html
 
