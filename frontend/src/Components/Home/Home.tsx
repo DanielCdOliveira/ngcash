@@ -15,7 +15,11 @@ export default function Home() {
           </div>
           <img src={smartphone} alt="" />
         </Logo>
-        {login ? <SignIn /> : <SignUp />}
+        {login ? (
+          <SignIn setLogin={setLogin} />
+        ) : (
+          <SignUp setLogin={setLogin} />
+        )}
       </Section>
     </>
   );

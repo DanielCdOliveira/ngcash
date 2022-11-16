@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useForm from "../../Hooks/useForm";
 import Input from "../Forms/Input";
 
-export default function SignIn() {
+export default function SignIn(setLogin: any) {
   const username = useForm("username");
   const password = useForm("password");
   return (
