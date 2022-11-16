@@ -12,3 +12,7 @@ export async function signin(req: Request, res: Response) {
   const token = await userService.login(user)
   res.status(200).send({ token })
 }
+export async function returnUser(req: Request, res: Response) {
+  const { username } = res.locals.userInfo
+  res.status(200).send({ username })
+}

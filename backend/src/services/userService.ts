@@ -41,11 +41,11 @@ export async function checkToken(authorization: string) {
       throw {}
     }
     const data = jwt.verify(token, JWT) as any;
-    const { id, accountId } = await userRepository.getUserById(data.id)
+    const { id, accountId, username } = await userRepository.getUserById(data.id)
     if (!id) {
       throw {}
     }
-    return { id, accountId }
+    return { id, accountId, username }
   } catch (error) {
     throw {
       type: "unauthorized",
