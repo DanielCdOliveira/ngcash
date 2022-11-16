@@ -1,7 +1,7 @@
 import { createGlobalStyle, keyframes } from "styled-components";
 
 // ANIMATIONS
-const animeLeft = keyframes`
+const animeCenter = keyframes`
   to{
     transform: translateX(0);
 		opacity: 1;
@@ -73,7 +73,12 @@ table {
 .animateLeft{
 	opacity: 0;
 	transform: translateX(-20px);
-	animation: ${animeLeft} .3s forwards;
+	animation: ${animeCenter} .3s forwards;
+}
+.animateRight{
+	opacity: 0;
+	transform: translateX(60px);
+	animation: ${animeCenter} .3s forwards;
 }
 /* Estilização geral */
 h1{

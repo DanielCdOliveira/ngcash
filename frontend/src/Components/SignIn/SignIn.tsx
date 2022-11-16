@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import useForm from "../../Hooks/useForm";
+import Input from "../Forms/Input";
 
 export default function SignIn() {
+  const username = useForm("username");
+  const password = useForm("password");
   return (
-    <Section>
+    <Section className="animateRight">
       <h1>Login</h1>
+      <Form></Form>
     </Section>
   );
 }
@@ -37,3 +42,4 @@ const Section = styled.section`
     position: absolute;
   }
 `;
+const Form = styled.form``;
