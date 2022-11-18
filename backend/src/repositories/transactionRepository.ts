@@ -49,6 +49,7 @@ export async function getTransactions(data: getTransactionsInfo) {
   SELECT * FROM transactions
   ${data.cash ? `WHERE "${data.cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${data.accountId}` :
       `WHERE "creditedAccountId"=${data.accountId} OR "debitedAccountId"=${data.accountId}`}
-  ${data.date ? `AND "createdAt" BETWEEN '${data.date} 00:00:00' AND '${data.date} 23:59:59'` : ""}`
+  ${data.date ? `AND "createdAt" BETWEEN '${data.date} 00:00:00' AND '${data.date} 23:59:59'` : ""}
+  ORDER BY "createdAt" DESC`
   return await prisma.$queryRawUnsafe(query)
 }

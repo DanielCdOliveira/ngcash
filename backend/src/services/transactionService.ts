@@ -1,7 +1,11 @@
 import * as accountService from "../services/accountService.js"
 import * as userService from "../services/userService.js"
 import * as transactionRepository from "../repositories/transactionRepository.js"
+import { Transaction } from "@prisma/client";
+import dayjs from "dayjs"
 
+
+const daysOfWeek = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 type getTransactionsInfo = {
   accountId?: number
   date?: string
@@ -39,5 +43,31 @@ async function destinationUserExists(destinationUserName: string) {
   return destinationUser
 }
 export async function getTransactions(data: getTransactionsInfo) {
-  return await transactionRepository.getTransactions(data)
+  const transactions = await transactionRepository.getTransactions(data)
+  const transactionsFormated = formatTransactions(transactions)
+  return transactionsFormated
+}
+export function formatTransactions(transactions: any) {
+  const transactionsFormated = []
+  let date = dayjs(transactions[0].createdAt).format('DD/MM/YYYY')
+  let dayOfWeek = daysOfWeek[new Date(transactions[0].createdAt).getDay()]
+  let transactionsArray = []
+  let transactionsOfDay = { date, dayOfWeek, transactionsArray }
+  console.log(transactionsOfDay);
+
+  transactions.map((transaction: any) => {
+    const newDate = dayjs(transaction.createdAt).format('DD/MM/YYYY')
+    const dateSplit = transaction.createdAt.toString().split(" ");
+    transaction.hour = dateSplit[4].replaceAll(":", "/")
+    if (newDate != date) {
+      transactionsFormated.push(transactionsOfDay)
+      date = newDate
+      dayOfWeek = daysOfWeek[new Date(transaction.createdAt).getDay()]
+      transactionsOfDay = { date, dayOfWeek, transactionsArray: [] }
+      transactionsOfDay.transactionsArray.push(transaction)
+    } else {
+      transactionsOfDay.transactionsArray.push(transaction)
+    }
+  })
+  return transactionsFormated
 }
