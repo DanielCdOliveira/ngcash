@@ -37,7 +37,6 @@ export function UserStorage({ children }: any) {
     },
     [navigate]
   );
-  // melhorar (colocando loading na verificação de login)
   useEffect(() => {
     async function autoLogin() {
       setError(null);

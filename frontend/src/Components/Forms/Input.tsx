@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 type InputType = {
-  label: string;
-  type: string;
-  name: string;
-  value: string;
-  onChange: any;
-  error: string;
-  onBlur: any;
-  disabled: boolean;
+  label?: string;
+  type?: string;
+  name?: string;
+  value?: string;
+  onChange?: any;
+  error?: string | undefined | null;
+  onBlur?: any;
+  disabled?: boolean;
 };
 export default function Input({
   label,
@@ -43,23 +43,24 @@ const StyledInput = styled.div`
     font-size: 1rem;
     line-height: 1;
     padding-bottom: 5px;
-    font-weight: 400;
+    font-weight: 500;
   }
   input {
-    border: 1px solid #eee;
+    border: none;
+    border-bottom: 3px solid #adadad;
     display: block;
     width: 100%;
-    font-size: 1rem;
-    padding: 0.8rem;
-    border-radius: 0.4rem;
-    background-color: #eee;
+    font-size: 1.2rem;
+    margin-top: 0.8rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.3rem;
     transition: 0.2s;
     &:hover,
     &:focus {
       outline: none;
-      border-color: #fb1;
+      border-color: #000;
       background-color: #fff;
-      box-shadow: 0 0 0 3px #fea;
+      border-bottom: 3px solid #000;
     }
     &:disabled {
       border: 1px solid #eee;

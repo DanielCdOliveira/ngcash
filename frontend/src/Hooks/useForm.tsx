@@ -1,10 +1,14 @@
 import { useState } from "react";
 const InputTypes = {
   password: {
-    regex: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,20}$/,
-    message: "Preencha um email válido",
+    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+    message:
+      "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e um número",
   },
-  name: { regex: /^\S{10,}$/, message: "Deve ter no mínimo 3 caracteres" },
+  username: {
+    regex: /^\S{3,}$/,
+    message: "Deve ter no mínimo 3 caracteres",
+  },
 };
 export default function useForm(type: string | false) {
   const [value, setValue] = useState<string>("");
