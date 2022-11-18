@@ -6,10 +6,11 @@ import useForm from "../../Hooks/useForm";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
 
-export default function SignIn(setLogin: any) {
+export default function SignIn({ setLogin }: any) {
   const username = useForm("username");
   const password = useForm("password");
   const { userLogin, loading, error, login }: any = useContext(UserContext);
+
   return (
     <Section className="animateRight">
       <div className="container">
@@ -36,7 +37,14 @@ export default function SignIn(setLogin: any) {
         <div className="signup">
           <h2>Cadastre-se</h2>
           <p>Não possui conta? Cadastre-se no site.</p>
-          <Link to="/login/create">Cadastro {">"}</Link>
+          <span
+            onClick={() => {
+              setLogin(false);
+            }}
+            className="link"
+          >
+            Cadastro {">"}
+          </span>
         </div>
       </div>
     </Section>
@@ -64,6 +72,7 @@ const Section = styled.section`
     position: relative;
     z-index: 1;
     font-weight: 700;
+    margin-bottom: 1rem;
   }
   h1::after {
     content: "";
@@ -95,7 +104,8 @@ const Section = styled.section`
         border-radius: 0.2rem;
       }
     }
-    a {
+    .link {
+      width: fit-content;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
