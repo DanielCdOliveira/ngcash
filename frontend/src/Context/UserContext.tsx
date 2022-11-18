@@ -25,6 +25,7 @@ export function UserStorage({ children }: any) {
   const { signUpLoading, signUp } = useSignUp();
   const { validateTokenLoading, validateToken } = useValidateToken();
   const navigate = useNavigate();
+  console.log(login);
 
   const userLogout = useCallback(
     async function () {

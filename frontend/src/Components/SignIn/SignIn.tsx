@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
+import Background from "../../Helper/Background";
 import useForm from "../../Hooks/useForm";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
@@ -17,42 +18,38 @@ export default function SignIn({ setLogin }: any) {
     }
   }
   return (
-    <Section className="animateRight">
-      <div className="container">
-        <h1>Login</h1>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            disabled={loading}
-            label={"Usuário"}
-            type={"name"}
-            name="username"
-            {...username}
-          />
-          <Input
-            disabled={loading}
-            label={"Senha"}
-            type={"password"}
-            name="password"
-            {...password}
-          />
-          <Button disabled={loading}>
-            {loading ? "Carregando..." : "Entrar"}
-          </Button>
-        </Form>
-        <div className="signup">
-          <h2>Cadastre-se</h2>
-          <p>Não possui conta? Cadastre-se no site.</p>
-          <span
-            onClick={() => {
-              setLogin(false);
-            }}
-            className="link"
-          >
-            Cadastro {">"}
-          </span>
+    <>
+      <Background />
+      <Section className="animateRight">
+        <div className="container">
+          <h1>Login</h1>
+          <Form onSubmit={handleSubmit}>
+            <Input
+              disabled={loading}
+              label={"Usuário"}
+              type={"name"}
+              name="username"
+              {...username}
+            />
+            <Input
+              disabled={loading}
+              label={"Senha"}
+              type={"password"}
+              name="password"
+              {...password}
+            />
+            <Button disabled={loading}>
+              {loading ? "Carregando..." : "Entrar"}
+            </Button>
+          </Form>
+          <div className="signup">
+            <h2>Cadastre-se</h2>
+            <p>Não possui conta? Cadastre-se no site.</p>
+            <Link to="/register">Cadastro {">"}</Link>
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 }
 
@@ -109,7 +106,7 @@ const Section = styled.section`
         border-radius: 0.2rem;
       }
     }
-    .link {
+    a {
       width: fit-content;
       font-size: 1rem;
       font-weight: 600;
