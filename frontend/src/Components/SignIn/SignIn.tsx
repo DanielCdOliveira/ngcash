@@ -10,12 +10,17 @@ export default function SignIn({ setLogin }: any) {
   const username = useForm("username");
   const password = useForm("password");
   const { userLogin, loading, error, login }: any = useContext(UserContext);
-
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    if (username.validate() && password.validate()) {
+      userLogin(username.value, password.value);
+    }
+  }
   return (
     <Section className="animateRight">
       <div className="container">
         <h1>Login</h1>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             disabled={loading}
             label={"Usuário"}

@@ -5,8 +5,6 @@ import SignUp from "../SignUp/SignUp";
 import smartphone from "../../smartphone.png";
 export default function Home() {
   const [login, setLogin] = useState(true);
-  console.log(login);
-
   return (
     <>
       <Section>

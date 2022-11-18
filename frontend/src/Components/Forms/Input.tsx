@@ -42,7 +42,7 @@ const StyledInput = styled.div`
     display: block;
     font-size: 1rem;
     line-height: 1;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     font-weight: 500;
   }
   input {
@@ -51,7 +51,6 @@ const StyledInput = styled.div`
     display: block;
     width: 100%;
     font-size: 1.2rem;
-    margin-top: 0.8rem;
     padding-bottom: 0.3rem;
     padding-left: 0.3rem;
     transition: 0.2s;
