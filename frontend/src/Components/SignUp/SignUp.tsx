@@ -3,24 +3,29 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import Background from "../../Helper/Background";
+import ErrorComponent from "../../Helper/Error";
 import useForm from "../../Hooks/useForm";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
 
-export default function SignUp({ setLogin }: any) {
-  console.log(setLogin);
-
+export default function SignUp() {
   const username = useForm("username");
   const password = useForm("password");
-  const { userLogin, loading, error, login }: any = useContext(UserContext);
-
+  const { userSignup, loading, error, login, setError }: any =
+    useContext(UserContext);
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    if (username.validate() && password.validate()) {
+      userSignup(username.value, password.value);
+    }
+  }
   return (
     <>
       <Background />
       <Section className="animateRight">
         <div className="container">
           <h1>Cadastro</h1>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Input
               disabled={loading}
               label={"Usuário"}
@@ -39,10 +44,13 @@ export default function SignUp({ setLogin }: any) {
               {loading ? "Carregando..." : "Entrar"}
             </Button>
           </Form>
+          <ErrorComponent error={error} />
           <div className="signup">
             <h2>Login</h2>
             <p>Já possui conta? Faça o login</p>
-            <Link to="/login">Login {">"}</Link>
+            <Link onClick={() => setError(null)} to="/login">
+              Login {">"}
+            </Link>
           </div>
         </div>
       </Section>

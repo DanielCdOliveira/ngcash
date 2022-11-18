@@ -13,6 +13,7 @@ type UserContextInterface = {
   data: any;
   error: any;
   login: boolean;
+  setError: any;
 };
 
 export const UserContext = createContext<UserContextInterface | null>(null);
@@ -25,8 +26,6 @@ export function UserStorage({ children }: any) {
   const { signUpLoading, signUp } = useSignUp();
   const { validateTokenLoading, validateToken } = useValidateToken();
   const navigate = useNavigate();
-  console.log(login);
-
   const userLogout = useCallback(
     async function () {
       setData(null);
@@ -77,11 +76,9 @@ export function UserStorage({ children }: any) {
       const data = await validateToken(token);
       setLogin(true);
       setData(data);
-      navigate("/account");
+      navigate("/");
     } catch (err) {
       setError("Usuário e senha incompatíveis!");
-      console.log(err);
-      console.log("Não foi possível fazer o login!");
     }
   }
   async function userSignup(username: string, password: string) {
@@ -99,7 +96,16 @@ export function UserStorage({ children }: any) {
   }
   return (
     <UserContext.Provider
-      value={{ userLogin, userSignup, userLogout, loading, data, error, login }}
+      value={{
+        userLogin,
+        userSignup,
+        userLogout,
+        loading,
+        data,
+        error,
+        login,
+        setError,
+      }}
     >
       {children}
     </UserContext.Provider>

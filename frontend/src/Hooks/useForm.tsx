@@ -1,7 +1,7 @@
 import { useState } from "react";
 const InputTypes = {
   password: {
-    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+    regex: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
     message:
       "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e um número",
   },

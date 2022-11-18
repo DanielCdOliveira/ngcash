@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import Background from "../../Helper/Background";
+import ErrorComponent from "../../Helper/Error";
 import useForm from "../../Hooks/useForm";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
@@ -10,13 +11,15 @@ import Input from "../Forms/Input";
 export default function SignIn({ setLogin }: any) {
   const username = useForm("username");
   const password = useForm("password");
-  const { userLogin, loading, error, login }: any = useContext(UserContext);
+  const { userLogin, loading, error, login, setError }: any =
+    useContext(UserContext);
   async function handleSubmit(e: any) {
     e.preventDefault();
     if (username.validate() && password.validate()) {
       userLogin(username.value, password.value);
     }
   }
+  if (login) return <Navigate to="/" />;
   return (
     <>
       <Background />
@@ -42,10 +45,13 @@ export default function SignIn({ setLogin }: any) {
               {loading ? "Carregando..." : "Entrar"}
             </Button>
           </Form>
+          <ErrorComponent error={error} />
           <div className="signup">
             <h2>Cadastre-se</h2>
             <p>Não possui conta? Cadastre-se no site.</p>
-            <Link to="/register">Cadastro {">"}</Link>
+            <Link onClick={() => setError(null)} to="/register">
+              Cadastro {">"}
+            </Link>
           </div>
         </div>
       </Section>

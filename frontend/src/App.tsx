@@ -1,8 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./Assets/GlobalStyle";
-import Account from "./Components/Account/Account";
 import Home from "./Components/Home/Home";
 import SignIn from "./Components/SignIn/SignIn";
 import SignUp from "./Components/SignUp/SignUp";
@@ -18,7 +15,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Account />
+                <Home />
               </ProtectedRoute>
             }
           />
