@@ -95,7 +95,7 @@ const Section = styled.section`
     position: absolute;
   }
   .signup {
-    margin-top: 4rem;
+    margin-top: 3rem;
     p {
       margin-top: 2rem;
       margin-bottom: 2rem;

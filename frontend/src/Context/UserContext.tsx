@@ -37,6 +37,8 @@ export function UserStorage({ children }: any) {
     },
     [navigate]
   );
+  console.log(data);
+
   useEffect(() => {
     async function autoLogin() {
       setError(null);

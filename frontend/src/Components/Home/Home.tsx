@@ -6,6 +6,20 @@ import smartphone from "../../smartphone.png";
 import { Navigate } from "react-router-dom";
 import { log } from "console";
 import { UserContext } from "../../Context/UserContext";
+import useGetTransactions from "../../Hooks/api/useGetTransactions";
+import Header from "../Header/Header";
 export default function Home() {
-  return <h1>HOME</h1>;
+  // const { transactionsData, getTransactionsError, getTransactionsLoading } =
+  //   useGetTransactions();
+  return (
+    <Section>
+      <Header />
+    </Section>
+  );
 }
+const Section = styled.section`
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+`;

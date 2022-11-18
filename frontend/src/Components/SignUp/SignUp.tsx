@@ -45,7 +45,7 @@ export default function SignUp() {
             </Button>
           </Form>
           <ErrorComponent error={error} />
-          <div className="signup">
+          <div className="signin">
             <h2>Login</h2>
             <p>Já possui conta? Faça o login</p>
             <Link onClick={() => setError(null)} to="/login">
@@ -93,8 +93,8 @@ const Section = styled.section`
     z-index: -1;
     position: absolute;
   }
-  .signup {
-    margin-top: 4rem;
+  .signin {
+    margin-top: 3rem;
     p {
       margin-top: 2rem;
       margin-bottom: 2rem;
