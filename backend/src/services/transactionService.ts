@@ -43,7 +43,10 @@ async function destinationUserExists(destinationUserName: string) {
   return destinationUser
 }
 export async function getTransactions(data: getTransactionsInfo) {
-  const transactions = await transactionRepository.getTransactions(data)
+  const transactions: any = await transactionRepository.getTransactions(data)
+  console.log("Transactions", transactions);
+
+  if (transactions.length === 0) return []
   const transactionsFormated = formatTransactions(transactions)
   return transactionsFormated
 }
@@ -53,12 +56,11 @@ export function formatTransactions(transactions: any) {
   let dayOfWeek = daysOfWeek[new Date(transactions[0].createdAt).getDay()]
   let transactionsArray = []
   let transactionsOfDay = { date, dayOfWeek, transactionsArray }
-  console.log(transactionsOfDay);
 
-  transactions.map((transaction: any) => {
+  transactions.map((transaction: any, index: number) => {
     const newDate = dayjs(transaction.createdAt).format('DD/MM/YYYY')
     const dateSplit = transaction.createdAt.toString().split(" ");
-    transaction.hour = dateSplit[4].replaceAll(":", "/")
+    transaction.hour = dateSplit[4].slice(0, 5)
     if (newDate != date) {
       transactionsFormated.push(transactionsOfDay)
       date = newDate
@@ -69,5 +71,8 @@ export function formatTransactions(transactions: any) {
       transactionsOfDay.transactionsArray.push(transaction)
     }
   })
+  transactionsFormated.push(transactionsOfDay)
+
+
   return transactionsFormated
 }
