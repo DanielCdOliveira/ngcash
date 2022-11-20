@@ -7,30 +7,41 @@ import TransactionsList from "./TransactionsList";
 import useGetBalance from "../../Hooks/api/useGetBalance";
 import useGetTransactions from "../../Hooks/api/useGetTransactions";
 import FilterModal from "../Modal/FilterModal";
+import TransactionModal from "../Modal/TransactionModal";
 export default function Transactions() {
   const { data }: any = useContext(UserContext);
-  const { balance }: any = useGetBalance();
   const [filter, setFilter] = useState({
     cash: "",
     date: "",
   });
   const [filterModal, setFilterModal] = useState(false);
-  const [newTransactionModal, setNewTransactionModal] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+  const [newTransactionModal, setNewTransactionModal] = useState(false);
   const {
     transactionsData,
     getTransactionsError,
     getTransactionsLoading,
     getTransactions,
   } = useGetTransactions();
+  const { balance, getBalance }: any = useGetBalance();
   console.log(transactionsData);
 
   useEffect(() => {
     async function reqTransactions() {
       await getTransactions(filter);
+      await getBalance();
     }
     reqTransactions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
+  }, [filter, refresh]);
+  // useEffect(() => {
+  //   async function reqTransactions() {
+  //     await getTransactions();
+  //     await getBalance();
+  //   }
+  //   reqTransactions();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [refresh]);
 
   if (!data || !transactionsData) return null;
   return (
@@ -40,10 +51,18 @@ export default function Transactions() {
         setFilterModal={setFilterModal}
         filterModal={filterModal}
       />
+      <TransactionModal
+        setNewTransactionModal={setNewTransactionModal}
+        newTransactionModal={newTransactionModal}
+        setRefresh={setRefresh}
+        refresh={refresh}
+      />
       <div className="container">
         <header>
           <h1>Olá, {data.username}</h1>
-          <Button>Transação +</Button>
+          <Button onClick={() => setNewTransactionModal(true)}>
+            Transferir +
+          </Button>
         </header>
         <div className="container-transactions">
           <h2 onClick={() => setFilterModal(true)} className="filter">

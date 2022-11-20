@@ -5,6 +5,7 @@ import * as transactionService from "../services/transactionService.js"
 export async function makeTransaction(req: Request, res: Response) {
   const { accountId } = res.locals.userInfo
   const transactionInfo = req.body;
+  console.log(transactionInfo);
   await transactionService.makeTransaction({ ...transactionInfo, accountId })
   res.sendStatus(200)
 }

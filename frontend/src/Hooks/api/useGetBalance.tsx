@@ -8,7 +8,7 @@ export default function useGetBalance() {
     loading: balanceLoading,
     error: balanceError,
     act: getBalance,
-  } = useAsync(() => balanceApi.getBalance());
+  } = useAsync(balanceApi.getBalance, false);
 
   return {
     balance,

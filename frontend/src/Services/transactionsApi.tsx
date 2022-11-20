@@ -11,3 +11,12 @@ export async function getTransactions({ cash, date }: any) {
   });
   return response.data;
 }
+export async function postTransaction(data: any) {
+  const token = localStorage.getItem("token");
+  const response = await api.post(`/transaction`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}
