@@ -6,6 +6,7 @@ import Button from "../Forms/Button";
 import TransactionsList from "./TransactionsList";
 import useGetBalance from "../../Hooks/api/useGetBalance";
 import useGetTransactions from "../../Hooks/api/useGetTransactions";
+import FilterModal from "../Modal/FilterModal";
 export default function Transactions() {
   const { data }: any = useContext(UserContext);
   const { balance }: any = useGetBalance();
@@ -13,6 +14,8 @@ export default function Transactions() {
     cash: "",
     date: "",
   });
+  const [filterModal, setFilterModal] = useState(false);
+  const [newTransactionModal, setNewTransactionModal] = useState(null);
   const {
     transactionsData,
     getTransactionsError,
@@ -32,13 +35,18 @@ export default function Transactions() {
   if (!data || !transactionsData) return null;
   return (
     <Section>
+      <FilterModal
+        setFilter={setFilter}
+        setFilterModal={setFilterModal}
+        filterModal={filterModal}
+      />
       <div className="container">
         <header>
           <h1>Olá, {data.username}</h1>
           <Button>Transação +</Button>
         </header>
         <div className="container-transactions">
-          <h2>
+          <h2 onClick={() => setFilterModal(true)} className="filter">
             <FiFilter /> Filtrar
           </h2>
           <section>
@@ -108,13 +116,14 @@ const Section = styled.section`
       top: 0;
     }
   }
-  h2 {
+  .filter {
     display: flex;
     align-items: center;
     height: 40px;
     font-size: 1.4rem;
     display: flex;
     flex-direction: row-reverse;
+    cursor: pointer;
     svg {
       margin-left: 6px;
     }
