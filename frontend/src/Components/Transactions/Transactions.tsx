@@ -4,6 +4,7 @@ import { UserContext } from "../../Context/UserContext";
 import { FiFilter } from "react-icons/fi";
 import Button from "../Forms/Button";
 import TransactionsList from "./TransactionsList";
+import useGetBalance from "../../Hooks/api/useGetBalance";
 const array = [
   {
     date: "19/11/2022",
@@ -76,6 +77,9 @@ const array = [
 ];
 export default function Transactions() {
   const { data }: any = useContext(UserContext);
+  const { balance }: any = useGetBalance();
+  console.log(balance);
+
   if (!data) return null;
   return (
     <Section>
@@ -94,7 +98,7 @@ export default function Transactions() {
         </div>
         <footer>
           <h1>Saldo atual</h1>
-          <h1>R$ 4582,25</h1>
+          <h1>R$ {balance && balance.balance}</h1>
         </footer>
       </div>
     </Section>
