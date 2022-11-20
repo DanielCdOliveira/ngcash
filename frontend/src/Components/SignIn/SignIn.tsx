@@ -101,7 +101,6 @@ const Section = styled.section`
       margin-bottom: 2rem;
     }
     h2 {
-      font-family: var(--type-second);
       font-size: 2rem;
       &::after {
         content: "";

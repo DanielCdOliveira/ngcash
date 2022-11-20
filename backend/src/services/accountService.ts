@@ -13,9 +13,9 @@ export async function getBalance(accountId: number) {
   }
   return balance
 }
-// export function intToString(value: number) {
-//   return (value / 100).toFixed(2).replace(".", ",")
-// }
+export function intToString(value: number) {
+  return (value / 100).toFixed(2).replace(".", ",")
+}
 // export function stringToInt(value: string) {
 //   return parseFloat(value.replace(",", ".")) * 100
 // }

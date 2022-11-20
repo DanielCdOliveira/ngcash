@@ -38,12 +38,6 @@ a{
 	color: #333;
 }
 ;
-button, input{
-  /* display: block;
-  font-size: 1rem;
-  font-family: var(--type-first);
-  color: #333; */
-}
 body {
 	line-height: 1;
 	margin:0;
@@ -80,25 +74,15 @@ table {
 	transform: translateX(60px);
 	animation: ${animeCenter} .3s forwards;
 }
-/* Estilização geral */
-h1{
-	/* font-family: var(--type-second);
-	font-size: 3rem;
-	margin: 1rem 0;
-	position: relative;
-	z-index: 1; */
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
 }
-h1::after{
-	/* content: '';
-	display: block;
-	width: 1.5rem;
-	height: 1.5rem;
-	background: #fb1;
-	bottom: 5px;
-	left: -5px;
-	border-radius: 0.2rem;
-	z-index: -1;
-	position: absolute; */
+::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #dad7d7;
 }
 `;
 

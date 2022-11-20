@@ -11,7 +11,6 @@ export async function makeTransaction(req: Request, res: Response) {
 export async function getTransactions(req: Request, res: Response) {
   const { accountId } = res.locals.userInfo
   const transactionInfo = req.query
-  console.log(transactionInfo);
   const transactions = await transactionService.getTransactions({ ...transactionInfo, accountId })
   res.status(200).send(transactions)
 }

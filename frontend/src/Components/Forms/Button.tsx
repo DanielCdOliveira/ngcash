@@ -21,7 +21,6 @@ const StyledButton = styled.button`
     margin-bottom: 0px;
     margin-left: 3px;
     box-shadow: none;
-    /* border: 3px solid #fff; */
   }
   &:disabled {
     opacity: 0.5;

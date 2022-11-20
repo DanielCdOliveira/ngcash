@@ -61,6 +61,7 @@ export function formatTransactions(transactions: any) {
     const newDate = dayjs(transaction.createdAt).format('DD/MM/YYYY')
     const dateSplit = transaction.createdAt.toString().split(" ");
     transaction.hour = dateSplit[4].slice(0, 5)
+    transaction.value = accountService.intToString(transaction.value)
     if (newDate != date) {
       transactionsFormated.push(transactionsOfDay)
       date = newDate

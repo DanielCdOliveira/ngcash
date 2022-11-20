@@ -62,7 +62,7 @@ const StyledInput = styled.div`
       border-bottom: 3px solid #000;
     }
     &:disabled {
-      border: 1px solid #eee;
+      border-bottom: 3px solid #adadad;
       background-color: #eee;
       pointer-events: none;
     }

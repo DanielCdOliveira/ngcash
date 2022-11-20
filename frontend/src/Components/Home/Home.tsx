@@ -8,18 +8,18 @@ import { log } from "console";
 import { UserContext } from "../../Context/UserContext";
 import useGetTransactions from "../../Hooks/api/useGetTransactions";
 import Header from "../Header/Header";
+import Transactions from "../Transactions/Transactions";
 export default function Home() {
   // const { transactionsData, getTransactionsError, getTransactionsLoading } =
   //   useGetTransactions();
   return (
     <Section>
       <Header />
+      <Transactions />
     </Section>
   );
 }
 const Section = styled.section`
-  z-index: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #fff;
+  display: flex;
+  align-items: center;
 `;
