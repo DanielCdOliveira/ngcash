@@ -11,14 +11,12 @@ export default function TransactionModal({
 }: any) {
   const [username, setUsername] = useState("");
   const [value, setValue] = useState("");
-  console.log(refresh);
 
   const {
     postTransactionError,
     postTransactionLoading,
     postTransactions,
   }: any = usePostTransactions();
-  console.log(postTransactionError);
   function changeValue({ target }: any) {
     setValue(target.value);
   }

@@ -3,8 +3,6 @@ import styled from "styled-components";
 import TransactionsDay from "./TransactionsDay";
 
 export default function TransactionsList({ transactions }: any) {
-  console.log(transactions);
-
   return (
     <List>
       {transactions.map((day: any) => {

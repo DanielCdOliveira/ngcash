@@ -17,6 +17,9 @@ export default function FilterModal({
     } else {
       setFilter({ cash: cashin ? "in" : "out", date });
     }
+    setCashin(false);
+    setCahsout(false);
+    setDate("");
     setFilterModal(false);
   }
   function handleOutsideClick(event: any) {

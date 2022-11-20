@@ -25,23 +25,23 @@ export default function SignUp() {
       <Section className="animateRight">
         <div className="container">
           <h1>Cadastro</h1>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} autoComplete="off">
             <Input
               disabled={loading}
               label={"Usuário"}
               type={"name"}
-              name="username"
+              name="username-register"
               {...username}
             />
             <Input
               disabled={loading}
               label={"Senha"}
               type={"password"}
-              name="password"
+              name="password-register"
               {...password}
             />
             <Button disabled={loading}>
-              {loading ? "Carregando..." : "Entrar"}
+              {loading ? "Carregando..." : "Cadastrar"}
             </Button>
           </Form>
           <ErrorComponent error={error} />

@@ -24,8 +24,6 @@ export default function Transactions() {
     getTransactions,
   } = useGetTransactions();
   const { balance, getBalance }: any = useGetBalance();
-  console.log(transactionsData);
-
   useEffect(() => {
     async function reqTransactions() {
       await getTransactions(filter);
