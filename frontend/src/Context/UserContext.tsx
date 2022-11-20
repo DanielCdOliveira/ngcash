@@ -33,7 +33,7 @@ export function UserStorage({ children }: any) {
       setLoading(false);
       setError(null);
       localStorage.removeItem("token");
-      navigate("/");
+      navigate("/login");
     },
     [navigate]
   );

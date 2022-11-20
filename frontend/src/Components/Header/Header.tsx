@@ -4,15 +4,12 @@ import { UserContext } from "../../Context/UserContext";
 import logo from "../../Assets/images/logo.svg";
 import { MdOutlineLogout } from "react-icons/md";
 export default function Header() {
-  const { data, loading }: any = useContext(UserContext);
-  console.log(loading);
-  console.log(data.username);
-
+  const { userLogout }: any = useContext(UserContext);
   return (
     <MainHeader>
       <div className="container">
         <img src={logo} alt="logo ngacash" />
-        <div className="user">
+        <div onClick={userLogout} className="user">
           <p className="logout">Logout</p>
           <MdOutlineLogout />
         </div>
@@ -41,6 +38,7 @@ const MainHeader = styled.header`
     height: 50px;
   }
   .user {
+    cursor: pointer;
     color: #fff;
     font-size: 1rem;
     display: flex;
