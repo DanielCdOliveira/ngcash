@@ -1,86 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import { FiFilter } from "react-icons/fi";
 import Button from "../Forms/Button";
 import TransactionsList from "./TransactionsList";
 import useGetBalance from "../../Hooks/api/useGetBalance";
-const array = [
-  {
-    date: "19/11/2022",
-    dayOfWeek: "Sábado",
-    transactionsArray: [
-      {
-        value: "10,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "teste123",
-        to: "joaosdsa",
-        hour: "20:15",
-      },
-      {
-        value: "100,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "teste123",
-        to: "joaosdsa",
-        hour: "20:15",
-      },
-      {
-        value: "10,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "joaosdsa",
-        to: "teste123",
-        hour: "20:15",
-      },
-      {
-        value: "50,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "joaosdsa",
-        to: "teste123",
-        hour: "20:15",
-      },
-    ],
-  },
-  {
-    date: "19/11/2022",
-    dayOfWeek: "Sábado",
-    transactionsArray: [
-      {
-        value: "10,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "teste123",
-        to: "joaosdsa",
-        hour: "20:15",
-      },
-      {
-        value: "100,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "teste123",
-        to: "joaosdsa",
-        hour: "20:15",
-      },
-      {
-        value: "10,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "joaosdsa",
-        to: "teste123",
-        hour: "20:15",
-      },
-      {
-        value: "50,00",
-        createdAt: "2022-11-19T23:15:50.991Z",
-        from: "joaosdsa",
-        to: "teste123",
-        hour: "20:15",
-      },
-    ],
-  },
-];
+import useGetTransactions from "../../Hooks/api/useGetTransactions";
 export default function Transactions() {
   const { data }: any = useContext(UserContext);
   const { balance }: any = useGetBalance();
-  console.log(balance);
+  const [filter, setFilter] = useState({
+    cash: "",
+    date: "",
+  });
+  const {
+    transactionsData,
+    getTransactionsError,
+    getTransactionsLoading,
+    getTransactions,
+  } = useGetTransactions();
+  console.log(transactionsData);
 
-  if (!data) return null;
+  useEffect(() => {
+    async function reqTransactions() {
+      await getTransactions(filter);
+    }
+    reqTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
+  if (!data || !transactionsData) return null;
   return (
     <Section>
       <div className="container">
@@ -93,7 +42,7 @@ export default function Transactions() {
             <FiFilter /> Filtrar
           </h2>
           <section>
-            <TransactionsList transactions={array} />
+            <TransactionsList transactions={transactionsData} />
           </section>
         </div>
         <footer>

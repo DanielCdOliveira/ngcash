@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../Context/UserContext";
 
 export default function TransactionsDay({ transactionsArray }: any) {
-  const username = "teste123";
+  const { data }: any = useContext(UserContext);
+  const username = data.username;
+  if (!data) return null;
   return (
     <List>
       {transactionsArray.map((transaction: any) => {
         return (
-          <ListItem>
+          <ListItem key={transaction.id}>
             {transaction.from === username ? (
               <>
                 <div className="username">
@@ -54,6 +57,7 @@ const ListItem = styled.li`
     }
   }
   .price {
+    font-size: 1rem;
     align-self: center;
   }
   .green {

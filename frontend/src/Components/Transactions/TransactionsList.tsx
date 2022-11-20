@@ -3,11 +3,13 @@ import styled from "styled-components";
 import TransactionsDay from "./TransactionsDay";
 
 export default function TransactionsList({ transactions }: any) {
+  console.log(transactions);
+
   return (
     <List>
       {transactions.map((day: any) => {
         return (
-          <ListItem>
+          <ListItem key={day.date}>
             <div className="container-day">
               <p>{day.dayOfWeek}</p>
               <span>{day.date}</span>

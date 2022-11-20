@@ -8,7 +8,7 @@ export default function useGetTransactions() {
     loading: getTransactionsLoading,
     error: getTransactionsError,
     act: getTransactions,
-  } = useAsync(() => transactionsApi.getTransactions);
+  } = useAsync(transactionsApi.getTransactions, false);
 
   return {
     transactionsData,

@@ -44,8 +44,6 @@ async function destinationUserExists(destinationUserName: string) {
 }
 export async function getTransactions(data: getTransactionsInfo) {
   const transactions: any = await transactionRepository.getTransactions(data)
-  console.log("Transactions", transactions);
-
   if (transactions.length === 0) return []
   const transactionsFormated = formatTransactions(transactions)
   return transactionsFormated

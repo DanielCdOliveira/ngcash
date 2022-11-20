@@ -46,7 +46,7 @@ export async function makeTransaction({ from, amount, to }) {
 }
 export async function getTransactions(data: getTransactionsInfo) {
   const query = `
-  SELECT t.value,t."createdAt",u.username as "from", utwo.username as "to" FROM transactions as t
+  SELECT t.id,t.value,t."createdAt",u.username as "from", utwo.username as "to" FROM transactions as t
   JOIN accounts as a
   ON t."debitedAccountId"=a."id"
   JOIN users as u
@@ -59,5 +59,7 @@ export async function getTransactions(data: getTransactionsInfo) {
   ${data.cash ? `${data.date ? "AND" : "WHERE"} ("${data.cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${data.accountId})` :
       `${data.date ? "AND" : "WHERE"} ("creditedAccountId"=${data.accountId} OR "debitedAccountId"=${data.accountId})`}
   ORDER BY "createdAt" DESC`
+  console.log(query);
+
   return await prisma.$queryRawUnsafe(query)
 }

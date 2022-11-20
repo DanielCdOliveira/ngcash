@@ -37,8 +37,6 @@ export function UserStorage({ children }: any) {
     },
     [navigate]
   );
-  console.log(data);
-
   useEffect(() => {
     async function autoLogin() {
       setError(null);
@@ -52,7 +50,6 @@ export function UserStorage({ children }: any) {
           setError(err);
           userLogout();
           console.log(err);
-          console.log("Não foi possível fazer o login!");
         }
       }
     }
