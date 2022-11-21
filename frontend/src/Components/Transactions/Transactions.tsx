@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import { FiFilter } from "react-icons/fi";
@@ -17,12 +17,7 @@ export default function Transactions() {
   const [filterModal, setFilterModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [newTransactionModal, setNewTransactionModal] = useState(false);
-  const {
-    transactionsData,
-    getTransactionsError,
-    getTransactionsLoading,
-    getTransactions,
-  } = useGetTransactions();
+  const { transactionsData, getTransactions } = useGetTransactions();
   const { balance, getBalance }: any = useGetBalance();
   useEffect(() => {
     async function reqTransactions() {
@@ -32,14 +27,6 @@ export default function Transactions() {
     reqTransactions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, refresh]);
-  // useEffect(() => {
-  //   async function reqTransactions() {
-  //     await getTransactions();
-  //     await getBalance();
-  //   }
-  //   reqTransactions();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [refresh]);
 
   if (!data || !transactionsData) return null;
   return (
@@ -78,12 +65,10 @@ export default function Transactions() {
     </Section>
   );
 }
-
 const Section = styled.section`
   width: 100vw;
   height: 100vh;
   background-color: #fff;
-
   .container {
     width: 40%;
     min-width: 600px;

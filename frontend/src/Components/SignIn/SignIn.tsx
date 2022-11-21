@@ -60,6 +60,16 @@ export default function SignIn({ setLogin }: any) {
 }
 
 const Section = styled.section`
+  @media (max-width: 1220px) {
+    max-width: 400px;
+    margin-top: 10vh;
+    left: calc(50vw - 200px);
+  }
+  @media (max-width: 650px) {
+    width: 100vw;
+    max-width: none;
+    left: 0;
+  }
   position: fixed;
   display: flex;
   flex-direction: column;

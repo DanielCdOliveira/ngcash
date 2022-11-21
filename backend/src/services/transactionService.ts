@@ -27,13 +27,13 @@ async function checkValue(from: number, amount: number) {
   const balance = await accountService.getBalance(from)
   if (amount > balance) {
     throw {
-      type: "unauthorized",
+      type: "conflict",
       message: "insufficient funds"
     }
   }
 }
 async function destinationUserExists(destinationUserName: string) {
-  const destinationUser = userService.getUserByName(destinationUserName)
+  const destinationUser = await userService.getUserByName(destinationUserName)
   if (!destinationUser) {
     throw {
       type: "not_found",

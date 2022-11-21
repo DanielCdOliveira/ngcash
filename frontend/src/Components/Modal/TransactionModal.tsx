@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../Context/UserContext";
 import usePostTransactions from "../../Hooks/api/usePostTransaction";
 import Button from "../Forms/Button";
 
@@ -11,16 +12,18 @@ export default function TransactionModal({
 }: any) {
   const [username, setUsername] = useState("");
   const [value, setValue] = useState("");
-
+  const [err, setErr] = useState("");
   const {
-    postTransactionError,
     postTransactionLoading,
     postTransactions,
+    postTransactionError,
   }: any = usePostTransactions();
+  const { userLogout }: any = useContext(UserContext);
   function changeValue({ target }: any) {
     setValue(target.value);
   }
   async function handleSubmit(event: any) {
+    setErr("");
     event.preventDefault();
     try {
       await postTransactions({
@@ -31,12 +34,26 @@ export default function TransactionModal({
       setValue("");
       setNewTransactionModal(false);
       setRefresh(!refresh);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.status === 422) {
+        setErr("Preencha os campos acima corretamente");
+      } else if (error.status === 404) {
+        setErr("Usuário não encontrado");
+      } else if (error.status === 409) {
+        setErr("Fundos insuficientes");
+      } else if (error.status === 401) {
+        alert("Sessão inválida");
+        userLogout();
+      }
     }
   }
   function handleOutsideClick(event: any) {
-    if (event.target === event.currentTarget) setNewTransactionModal(false);
+    if (event.target === event.currentTarget) {
+      setNewTransactionModal(false);
+      setUsername("");
+      setValue("");
+      setErr("");
+    }
   }
   if (!newTransactionModal) return null;
   return (
@@ -66,9 +83,7 @@ export default function TransactionModal({
               onChange={(e) => changeValue(e)}
             />
           </div>
-          <span className="error">
-            {postTransactionError && postTransactionError.data.message}
-          </span>
+          <span className="error">{postTransactionError && err}</span>
           <Button>Transferir</Button>
         </form>
       </Modal>

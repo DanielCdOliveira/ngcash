@@ -59,7 +59,5 @@ export async function getTransactions(data: getTransactionsInfo) {
   ${data.cash ? `${data.date ? "AND" : "WHERE"} ("${data.cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${data.accountId})` :
       `${data.date ? "AND" : "WHERE"} ("creditedAccountId"=${data.accountId} OR "debitedAccountId"=${data.accountId})`}
   ORDER BY "createdAt" DESC`
-  console.log(query);
-
   return await prisma.$queryRawUnsafe(query)
 }
