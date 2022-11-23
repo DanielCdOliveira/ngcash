@@ -10,5 +10,6 @@ export const postTransactionSchema = joi.object({
 })
 export const getTransactionsSchema = joi.object({
   cash: joi.string().valid("in", "out", ""),
-  date: joi.string().pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)
+  startDate: joi.string().pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/),
+  endDate: joi.string().pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/),
 })

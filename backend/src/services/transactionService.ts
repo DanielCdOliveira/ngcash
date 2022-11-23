@@ -1,17 +1,10 @@
 import * as accountService from "../services/accountService.js"
 import * as userService from "../services/userService.js"
 import * as transactionRepository from "../repositories/transactionRepository.js"
-import { Transaction } from "@prisma/client";
 import dayjs from "dayjs"
-
+import { TransactionInfo } from "../interfaces/interfaces.js";
 
 const daysOfWeek = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
-type getTransactionsInfo = {
-  accountId?: number
-  date?: string
-  cash?: "in" | "out"
-};
-
 export async function makeTransaction({ accountId: from, destinationUserName, amount }) {
   await checkValue(from, amount)
   const destinationUser = await destinationUserExists(destinationUserName)
@@ -42,7 +35,7 @@ async function destinationUserExists(destinationUserName: string) {
   }
   return destinationUser
 }
-export async function getTransactions(data: getTransactionsInfo) {
+export async function getTransactions(data: TransactionInfo) {
   const transactions: any = await transactionRepository.getTransactions(data)
   if (transactions.length === 0) return []
   const transactionsFormated = formatTransactions(transactions)

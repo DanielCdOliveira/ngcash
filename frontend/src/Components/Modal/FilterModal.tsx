@@ -9,7 +9,31 @@ export default function FilterModal({
 }: any) {
   const [cashin, setCashin] = useState(false);
   const [cashout, setCahsout] = useState(false);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState({
+    startDate: "",
+    endDate: "",
+  });
+  function changeDateStart(event: any) {
+    if (event.target.value <= date.endDate) {
+      setDate({ ...date, startDate: event.target.value });
+    } else {
+      setDate({ endDate: event.target.value, startDate: event.target.value });
+    }
+  }
+  function changeDateEnd(event: any) {
+    if (date.startDate === "") {
+      setDate({
+        startDate: event.target.value,
+        endDate: event.target.value,
+      });
+    } else {
+      if (event.target.value >= date.startDate && date.startDate !== "") {
+        setDate({ ...date, endDate: event.target.value });
+      } else {
+        setDate({ ...date, endDate: date.startDate });
+      }
+    }
+  }
   function handleSubmit(event: any) {
     event.preventDefault();
     if ((cashin && cashout) || (!cashin && !cashout)) {
@@ -19,11 +43,20 @@ export default function FilterModal({
     }
     setCashin(false);
     setCahsout(false);
-    setDate("");
+    setDate({
+      startDate: "",
+      endDate: "",
+    });
     setFilterModal(false);
   }
   function handleOutsideClick(event: any) {
-    if (event.target === event.currentTarget) setFilterModal(false);
+    if (event.target === event.currentTarget) {
+      setFilterModal(false);
+      setDate({
+        startDate: "",
+        endDate: "",
+      });
+    }
   }
   if (!filterModal) return null;
   return (
@@ -56,16 +89,30 @@ export default function FilterModal({
               <label htmlFor="cash-out">Saídas</label>
             </div>
           </div>
+          <h2>Data</h2>
           <div className="date-input">
-            <h2>Data</h2>
-            <input
-              type="date"
-              name="date-filter"
-              id="date-filter"
-              onChange={(e) => {
-                setDate(e.target.value);
-              }}
-            />
+            <div className="date-option">
+              <label htmlFor="date-filter-start">Início</label>
+              <input
+                type="date"
+                name="date-filter-start"
+                id="date-filter-start"
+                onChange={(e) => changeDateStart(e)}
+                value={date.startDate}
+              />
+            </div>
+            <div className="date-option">
+              <label htmlFor="date-filter-end">Fim</label>
+              <input
+                type="date"
+                name="date-filter-end"
+                id="date-filter-end"
+                onChange={(e) => {
+                  changeDateEnd(e);
+                }}
+                value={date.endDate}
+              />
+            </div>
           </div>
           <Button>Filtrar</Button>
         </form>
@@ -131,10 +178,17 @@ const Modal = styled.div`
       margin-top: 8px;
     }
     .date-input {
+      display: flex;
+      justify-content: center;
       input {
         margin-left: 8px;
         margin-bottom: 18px;
       }
+    }
+    .date-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     button {
       width: fit-content;

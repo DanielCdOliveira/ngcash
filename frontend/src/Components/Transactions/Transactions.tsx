@@ -14,6 +14,8 @@ export default function Transactions() {
     cash: "",
     date: "",
   });
+  console.log(filter);
+
   const [filterModal, setFilterModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [newTransactionModal, setNewTransactionModal] = useState(false);

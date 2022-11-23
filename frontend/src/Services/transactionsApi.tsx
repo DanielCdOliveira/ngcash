@@ -2,11 +2,14 @@ import api from "./api";
 
 export async function getTransactions({ cash, date }: any) {
   const token = localStorage.getItem("token");
-  const response = await api.get(`/transactions?cash=${cash}&date=${date}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await api.get(
+    `/transactions?cash=${cash}&startDate=${date.startDate}&endDate=${date.endDate}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 }
 export async function postTransaction(data: any) {

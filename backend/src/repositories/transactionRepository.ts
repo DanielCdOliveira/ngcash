@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client"
 import { prisma } from "../database.js"
+import { TransactionInfo } from "../interfaces/interfaces.js"
 type getTransactionsInfo = {
   accountId?: number
   date?: string
@@ -44,7 +45,7 @@ export async function makeTransaction({ from, amount, to }) {
     }
   }
 }
-export async function getTransactions(data: getTransactionsInfo) {
+export async function getTransactions({ accountId, cash, startDate, endDate }: TransactionInfo) {
   const query = `
   SELECT t.id,t.value,t."createdAt",u.username as "from", utwo.username as "to" FROM transactions as t
   JOIN accounts as a
@@ -55,9 +56,9 @@ export async function getTransactions(data: getTransactionsInfo) {
   ON t."creditedAccountId"=atwo."id"
   JOIN users as utwo
   ON atwo."id"=utwo."accountId" 
-  ${data.date ? `WHERE ("createdAt" BETWEEN '${data.date} 00:00:00' AND '${data.date} 23:59:59')` : ""}
-  ${data.cash ? `${data.date ? "AND" : "WHERE"} ("${data.cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${data.accountId})` :
-      `${data.date ? "AND" : "WHERE"} ("creditedAccountId"=${data.accountId} OR "debitedAccountId"=${data.accountId})`}
+  ${startDate ? `WHERE ("createdAt" BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59')` : ""}
+  ${cash ? `${startDate ? "AND" : "WHERE"} ("${cash === "in" ? "creditedAccountId" : "debitedAccountId"}"=${accountId})` :
+      `${startDate ? "AND" : "WHERE"} ("creditedAccountId"=${accountId} OR "debitedAccountId"=${accountId})`}
   ORDER BY "createdAt" DESC`
   return await prisma.$queryRawUnsafe(query)
 }
